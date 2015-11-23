@@ -1,0 +1,68 @@
+// {{comment}}
+
+import Component from 'react-pure-render/component';
+import Radium from 'radium';
+import React from 'react';
+
+const styles = {
+  icon: {
+    color: 'hsl(0, 0%, 25%)',
+    fontFamily: '{{fontName}}',
+    fontStyle: 'normal',
+    fontVariant: 'normal',
+    fontWeight: 'normal',
+    lineHeight: 1,
+    fontSize: '30px',
+    textAlign: 'center',
+    speak: 'none',
+    textTransform: 'none',
+    userSelect: 'none'
+  }
+};
+
+export const iconList = {
+  {% for icon in icons -%}{{icon.name}}: '&#{{icon.code}};'
+  {%- if !loop.last -%}
+    {% raw %},{% endraw %}
+  {%- else -%}
+{% raw %}
+};{% endraw %}
+{%- endif -%}
+{%- endfor -%}
+
+@Radium
+export default class Icon extends Component {
+
+  static propTypes = {
+    color:          React.PropTypes.string,
+    display:        React.PropTypes.string,
+    inheritedStyle: React.PropTypes.object,
+    kind:           React.PropTypes.oneOf([
+      {%- for icon in icons %}
+      '{{icon.name}}'{%- if !loop.last -%},{% endif -%}
+      {% endfor %}
+    ]).isRequired,
+    size:           React.PropTypes.string
+  }
+
+  render() {
+    const {kind, color, size, display, inheritedStyle} = this.props;
+
+    return (
+      <div
+        dangerouslySetInnerHTML={
+          {__html: iconList[kind]}
+        }
+        style={[
+          styles.icon,
+          {
+            color: (color || styles.icon.color),
+            display: (display || styles.icon.display),
+            fontSize: (size || styles.icon.fontSize)
+          },
+          inheritedStyle
+        ]}
+      />
+    );
+  }
+}

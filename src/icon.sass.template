@@ -1,0 +1,42 @@
+// {{comment}}
+
+@font-face
+  font:
+    family: '{{fontName}}'
+    weight: normal
+    style: normal
+  src: url('{{fontPath}}/{{fontName}}.woff2') format('woff2'), url('{{fontPath}}/{{fontName}}.woff') format('woff'), url('{{fontPath}}/{{fontName}}.ttf') format('truetype')
+
+%icon, .icon
+  font:
+    family: '{{fontName}}'
+    style: normal
+    variant: normal
+    weight: normal
+  line-height: 1
+  speak: none
+  text-transform: none
+  -moz-osx-font-smoothing: grayscale
+  -webkit-font-smoothing: antialiased
+
+  &-sm
+    @extend %font-size-small
+  &-lg
+    @extend %font-size-large
+
+=icon($content)
+  &:before
+    content: $content
+    line-height: 1
+    speak: none
+    text-transform: none
+    @content
+
+$icon_list: ({% for icon in icons -%}{{icon.name}}: "\{{icon.code}}", {% endfor %})
+
+@each $name, $glyph_code in $icon_list
+  %icon_#{$name}
+    @extend %icon
+    content: $glyph_code
+  .icon-#{$name}:before
+    @extend %icon_#{$name}
