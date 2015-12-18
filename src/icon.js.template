@@ -36,7 +36,6 @@ export default class Icon extends Component {
   static propTypes = {
     color:          React.PropTypes.string,
     display:        React.PropTypes.string,
-    inheritedStyle: React.PropTypes.object,
     kind:           React.PropTypes.oneOf([
       {%- for icon in icons %}
       '{{icon.name}}'{%- if !loop.last -%},{% endif -%}
@@ -46,7 +45,11 @@ export default class Icon extends Component {
   }
 
   render() {
-    const {kind, color, size, display, inheritedStyle} = this.props;
+    const {kind, color, size, display, ...containerProps} = this.props;
+    const inheritedStyle = containerProps.style;
+    const propsWithoutStyle = {...containerProps};
+
+    delete propsWithoutStyle.style;
 
     return (
       <div
