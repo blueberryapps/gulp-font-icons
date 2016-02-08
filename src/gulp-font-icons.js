@@ -59,6 +59,8 @@ export function generateIconSass(glyphs) {
       }),
       className: config.className,
       comment: config.comment,
+      fontName: config.options.fontName,
+      fontPath: config.fontPath,
     },
   });
 
