@@ -34,15 +34,15 @@ export const iconList = {
 export default class Icon extends Component {
 
   static propTypes = {
-    color:          React.PropTypes.string,
-    display:        React.PropTypes.string,
-    kind:           React.PropTypes.oneOf([
+    color: React.PropTypes.string,
+    display: React.PropTypes.string,
+    kind: React.PropTypes.oneOf([
       {%- for icon in icons %}
       '{{icon.name}}'{%- if !loop.last -%},{% endif -%}
       {% endfor %}
     ]).isRequired,
     size:           React.PropTypes.string
-  }
+  };
 
   render() {
     const {kind, color, size, display, ...containerProps} = this.props;
