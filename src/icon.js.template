@@ -41,7 +41,7 @@ export default class Icon extends Component {
       '{{icon.name}}'{%- if !loop.last -%},{% endif -%}
       {% endfor %}
     ]).isRequired,
-    size:           React.PropTypes.string
+    size: React.PropTypes.string
   };
 
   render() {
