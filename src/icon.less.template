@@ -1,0 +1,15 @@
+//variables
+{% for icon in icons %}@{{className}}-{{icon.name}}: '\{{icon.code}}';
+{% endfor %}
+
+{% include 'font-face.template' %}
+
+@icon-list: {%for icon in icons %}{{className}}-{{icon.name}},{% endfor %};
+
+.-(@i: length(@icon-list)) when (@i > 0) {
+    @name: extract(@icon-list, @i);
+    @{name}:before {
+        content: @@name;
+    }
+    .-((@i - 1));
+} .-;
