@@ -5,7 +5,8 @@
     family: '{{fontName}}'
     weight: normal
     style: normal
-  src: url('{{fontPath}}/{{fontName}}.woff2') format('woff2'), url('{{fontPath}}/{{fontName}}.woff') format('woff'), url('{{fontPath}}/{{fontName}}.ttf') format('truetype')
+  src: {% for fontFormat in fontFormats -%}url('{{fontPath}}/{{fontName}}.{{fontFormat}}') format('{{fontFormat}}'){% if not loop.last %}, {% endif %}
+         {% endfor %}
 
 %icon, .icon
   font:

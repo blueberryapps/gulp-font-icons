@@ -33,7 +33,7 @@ uE001-square.svg
 In your gulpfile, import the iconfont module and the necessary functions. The sass/js functions can be omitted.
 
 ```js
-import {config, generateIconJs, generateIconSass, generateFontCss} from 'gulp-font-icons';
+import {config, generateIcon} from 'gulp-font-icons';
 import iconfont from 'gulp-iconfont';
 ```
 
@@ -54,9 +54,7 @@ gulp.task('font-icons', function() {
   return gulp.src(config.iconSrc)
   .pipe(iconfont(config.options)
   .on('glyphs', function(glyphs, options) {
-    generateFontCss();
-    generateIconSass(glyphs, options);
-    generateIconJs(glyphs, options);
+    generateIcon('css sass', glyphs)
   }))
   .pipe(gulp.dest(config.iconDest));
 });
@@ -87,3 +85,28 @@ And the sass mixin like this:
 ```sass
 @extend %icon_svgname
 ```
+
+to prevent showing it on console use 
+```js
+Object.assign(config, {
+ 'showLog': false
+});
+ ```
+ 
+ ### To compile own created types and files
+ 
+ If you use different css preprocessor or html preprocessor or other. Simply add your type to config like this
+ ```js
+ Object.assign(config, {
+  stylus: {
+    template: 'path/to/your/template',
+    dest: 'destanation/folder',
+    outputName: 'fileName.withExtantion',
+  },
+  templateData: {
+    //put any data you need in your custom template
+  }
+ });
+ ```
+ 
+ then simply call ```generateIcon``` with your type
