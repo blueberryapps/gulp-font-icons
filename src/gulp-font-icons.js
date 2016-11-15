@@ -36,6 +36,9 @@ export const config = {
     normalize: true,
     timestamp: runTimestamp,
   },
+  templateData: {
+    //  extend this property to through any data to custom template
+  },
 };
 
 function toCamelCase(string) {
@@ -51,6 +54,7 @@ export function generateIcon(types = 'css', glyphs = '') {
       fontName: config.options.fontName,
       fontPath: config.fontPath,
       fontFormats: config.options.formats,
+      ...config.templateData,
     },
   };
 
